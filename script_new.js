@@ -80,6 +80,7 @@ document.addEventListener('DOMContentLoaded', () => {
     initializeImageModal();
     initializeGalleries();
     initializeThemeToggle();
+    initializeMobileScrollSpy();
     
     // Handle resize
     window.addEventListener('resize', handleResize);
@@ -436,19 +437,10 @@ function initializeThemeToggle() {
     }
 }
 
-// ===== RESIZE HANDLER =====
-function handleResize() {
-    const wasDesktop = isDesktop;
-    isDesktop = window.innerWidth > 768;
+// ===== MOBILE SCROLL SPY =====
+function initializeMobileScrollSpy() {
+    if (isDesktop) return;
     
-    if (wasDesktop !== isDesktop) {
-        // Reload to reinitialize proper view
-        window.location.reload();
-    }
-}
-
-// ===== SCROLL SPY FOR MOBILE =====
-if (!isDesktop) {
     let scrollTimer;
     
     window.addEventListener('scroll', () => {
@@ -471,4 +463,15 @@ if (!isDesktop) {
             });
         }, 50);
     });
+}
+
+// ===== RESIZE HANDLER =====
+function handleResize() {
+    const wasDesktop = isDesktop;
+    isDesktop = window.innerWidth > 768;
+    
+    if (wasDesktop !== isDesktop) {
+        // Reload to reinitialize proper view
+        window.location.reload();
+    }
 }
