@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ignatian Pilgrimage 2025 - Journey of Faith</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+    <link rel="stylesheet" href="styles_new.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Splash Screen -->
+    <div id="splash-screen" class="splash-screen">
+        <div class="splash-content">
+            <div class="ihs-logo">
+                <img src="Ihs-logo.svg" width="120" height="120" alt="IHS Logo" style="display:block; margin:0 auto; max-width:120px; height:auto;"/>
+            </div>
+            <h1 class="splash-title">Ignatian Pilgrimage</h1>
+            <p class="splash-subtitle">In the Footsteps of Saint Ignatius</p>
+            <p class="splash-dates">May 27 - June 5, 2025</p>
+            <div class="loading-bar">
+                <div class="loading-progress"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Desktop Navigation Sidebar -->
+    <nav id="desktop-nav" class="desktop-nav">
+        <div class="nav-header">
+            <div class="nav-logo">Pilgrimage</div>
+            <h2 class="nav-title">Journey Stops</h2>
+        </div>
+        <div class="nav-timeline">
+            <div class="timeline-track"></div>
+            <div class="nav-stops">
+                <!-- Will be populated by JavaScript -->
+            </div>
+        </div>
+        <div class="nav-footer">
+            <button class="theme-toggle" aria-label="Toggle theme">
+                <span class="theme-icon">🌙</span>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Mobile Progress Bar -->
+    <div id="mobile-progress" class="mobile-progress">
+        <div class="progress-bar">
+            <div class="progress-fill"></div>
+        </div>
+        <button class="mobile-menu-toggle" aria-label="Toggle menu">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+    </div>
+
+    <!-- Mobile Navigation Menu -->
+    <div id="mobile-menu" class="mobile-menu">
+        <div class="mobile-menu-header">
+            <h2>Pilgrimage Stops</h2>
+            <button class="mobile-menu-close">&times;</button>
+        </div>
+        <div class="mobile-menu-stops">
+            <!-- Will be populated by JavaScript -->
+        </div>
+    </div>
+
+    <!-- Map Container (Desktop Only) -->
+    <div id="map" class="map-container"></div>
+
+    <!-- Main Content -->
+    <main id="main-content" class="main-content">
+        <div class="content-wrapper">
+            <!-- Gallery Sections -->
+            <div class="gallery-container">
+                <!-- Bilbao Section -->
+                <section id="bilbao-section" class="location-section active">
+                    <div class="section-content">
+                        <h2>Bilbao - Where It All Begins</h2>
+                        <div class="date-header">May 27, 2025</div>
+                        <p class="location-description">
+                            Our pilgrimage begins in Bilbao, the birthplace of Father Pedro Arrupe SJ, the 28th Superior General 
+                            of the Society of Jesus. Jesuit Faculty and Administrators from Loyola Chicago, Loyola Maryland, Saint Louis University, and the College of the Holy Cross gathered to begin our spiritual journey following 
+                            the footsteps of Saint Ignatius and the Jesuit tradition.
+                        </p>
+                        <div class="gallery-grid">
+                            <div class="gallery-item">
+                                <div class="gallery-image clickable-gallery" style="background-image: url('images/bilbao_city_01.jpg'); background-size: cover; background-position: center;" data-gallery="bilbao_city" data-images="images/bilbao_city_01.jpg,images/bilbao_city_02.jpg" data-featured="images/bilbao_city_01.jpg">
+                                </div>
+                                <p class="image-caption">Bilbao - Modern Basque Capital</p>
+                                <div class="location-links">
+                                    <a href="https://maps.google.com/?q=Bilbao,+Spain" target="_blank" class="location-link">📍 Google Maps</a>
+                                    <a href="https://en.wikipedia.org/wiki/Bilbao" target="_blank" class="location-link">📖 Wikipedia</a>
+                                </div>
+                            </div>
+                            <div class="gallery-item">
+                                <div class="gallery-image" style="background: linear-gradient(45deg, #2E8B57, #90EE90);" data-gallery="bilbao_arrupe" data-images="bilbao_arrupe_01.jpg,bilbao_arrupe_02.jpg">
+                                    <div class="filename-overlay">bilbao_arrupe_*.jpg</div>
+                                </div>
+                                <p class="image-caption">Birthplace of Father Arrupe</p>
+                                <div class="location-links">
+                                    <a href="https://maps.google.com/?q=Pedro+Arrupe+birthplace,+Bilbao,+Spain" target="_blank" class="location-link">📍 Google Maps</a>
+                                    <a href="https://en.wikipedia.org/wiki/Pedro_Arrupe" target="_blank" class="location-link">📖 Wikipedia</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Azpeitia Section -->
+                <section id="azpeitia-section" class="location-section">
+                    <div class="section-content">
+                        <h2>Azpeitia - Loyola Castle</h2>
+                        <div class="date-header">May 28, 2025</div>
+                        <p class="location-description">
+                            Visit the Loyola Castle, birthplace of Saint Ignatius in 1491. Here we explore the place of his 
+                            conversion after being wounded at Pamplona and St. Sebastian Church. 
+                            This sacred site marks the beginning of Ignatius's spiritual transformation.
+                        </p>
+                        <div class="gallery-grid">
+                            <div class="gallery-item">
+                                <div class="gallery-image clickable-gallery" style="background-image: url('images/loyola_castle_01.jpg'); background-size: cover; background-position: center;" data-gallery="loyola_castle" data-images="images/loyola_castle_01.jpg,images/loyola_castle_02.jpg,images/loyola_castle_03.jpg,images/loyola_castle_04.jpg,images/loyola_castle_05.jpg,images/loyola_castle_06.jpg,images/loyola_castle_07.jpg,images/loyola_castle_08.jpg,images/loyola_castle_09.jpg" data-featured="images/loyola_castle_01.jpg">
+                                </div>
+                                <p class="image-caption">Loyola Castle - Birthplace of Saint Ignatius</p>
+                                <div class="location-links">
+                                    <a href="https://maps.google.com/?q=Sanctuary+of+Loyola,+Azpeitia,+Spain" target="_blank" class="location-link">📍 Google Maps</a>
+                                    <a href="https://en.wikipedia.org/wiki/Sanctuary_of_Loyola" target="_blank" class="location-link">📖 Wikipedia</a>
+                                </div>
+                            </div>
+                            <div class="gallery-item">
+                                <div class="gallery-image clickable-gallery" style="background-image: url('images/azpeitia_sebastian_01.jpg'); background-size: cover; background-position: center;" data-gallery="azpeitia_sebastian" data-images="images/azpeitia_sebastian_01.jpg,images/azpeitia_sebastian_02.jpg,images/azpeitia_sebastian_03.jpg,images/azpeitia_sebastian_04.jpg,images/azpeitia_sebastian_05.jpg" data-featured="images/azpeitia_sebastian_01.jpg">
+                                </div>
+                                <p class="image-caption">St. Sebastian Church</p>
+                                <div class="location-links">
+                                    <a href="https://maps.google.com/?q=San+Sebastian+Church,+Azpeitia,+Spain" target="_blank" class="location-link">📍 Google Maps</a>
+                                    <a href="https://en.wikipedia.org/wiki/Azpeitia" target="_blank" class="location-link">📖 Wikipedia</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Arantzazu Section -->
+                <section id="arantzazu-section" class="location-section">
+                    <div class="section-content">
+                        <h2>Arantzazu - Vow of Chastity</h2>
+                        <div class="date-header">May 28, 2025</div>
+                        <p class="location-description">
+                            At this sacred Marian sanctuary, Ignatius took his vow of chastity and poverty, seeking the Virgin's 
+                            guidance for his spiritual journey. The Basilica of Arantzazu stands as a testament to Basque faith 
+                            and Ignatius's deepening devotion to Our Lady.
+                        </p>
+                        <div class="gallery-grid">
+                            <div class="gallery-item">
+                                <div class="gallery-image clickable-gallery" style="background-image: url('images/arantzazu_basilica_01.jpg'); background-size: cover; background-position: center;" data-gallery="arantzazu_basilica" data-images="images/arantzazu_basilica_01.jpg,images/arantzazu_basilica_02.jpg,images/arantzazu_basilica_03.jpg,images/arantzazu_basilica_04.jpg,images/arantzazu_basilica_05.jpg" data-featured="images/arantzazu_basilica_01.jpg">
+                                </div>
+                                <p class="image-caption">Basilica of Arantzazu</p>
+                                <div class="location-links">
+                                    <a href="https://maps.google.com/?q=Sanctuary+of+Arantzazu,+Oñati,+Spain" target="_blank" class="location-link">📍 Google Maps</a>
+                                    <a href="https://en.wikipedia.org/wiki/Sanctuary_of_Arantzazu" target="_blank" class="location-link">📖 Wikipedia</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Xavier Section -->
+                <section id="xavier-section" class="location-section">
+                    <div class="section-content">
+                        <h2>Xavier - Castle of Saint Francis</h2>
+                        <div class="date-header">May 29, 2025</div>
+                        <p class="location-description">
+                            We travel past Pamplona, where Ignatius was grievously wounded in 1521 during the siege by French forces. 
+                            Imagining the rugged terrain and his difficult transport back to Loyola Castle after such a devastating injury, 
+                            we continue our journey to the ancestral castle of Saint Francis Xavier, Ignatius's first companion and the 
+                            great missionary to the East. We spend the night here, reflecting on the friendship that changed the world 
+                            and the universal mission of the Society of Jesus.
+                        </p>
+                        <div class="gallery-grid">
+                            <div class="gallery-item">
+                                <div class="gallery-image clickable-gallery" style="background-image: url('images/xavier_castle_01.jpg'); background-size: cover; background-position: center;" data-gallery="xavier_castle" data-images="images/xavier_castle_01.jpg,images/xavier_castle_02.jpg,images/xavier_castle_03.jpg,images/xavier_castle_04.jpg,images/xavier_castle_05.jpg,images/xavier_castle_06.jpg,images/xavier_castle_07.jpg" data-featured="images/xavier_castle_01.jpg">
+                                </div>
+                                <p class="image-caption">Castle of Xavier</p>
+                                <div class="location-links">
+                                    <a href="https://maps.google.com/?q=Castle+of+Xavier,+Javier,+Spain" target="_blank" class="location-link">📍 Google Maps</a>
+                                    <a href="https://en.wikipedia.org/wiki/Castle_of_Xavier" target="_blank" class="location-link">📖 Wikipedia</a>
+                                </div>
+                            </div>
+                            <div class="gallery-item">
+                                <div class="gallery-image clickable-gallery" style="background-image: url('images/bodegas_abete_01.jpg'); background-size: cover; background-position: center;" data-gallery="bodegas_abete" data-images="images/bodegas_abete_01.jpg,images/bodegas_abete_02.jpg,images/bodegas_abete_03.jpg" data-featured="images/bodegas_abete_01.jpg">
+                                </div>
+                                <p class="image-caption">Bodegas Máximo Abete</p>
+                                <div class="location-links">
+                                    <a href="https://maps.google.com/?q=Bodegas+Máximo+Abete,+Spain" target="_blank" class="location-link">📍 Google Maps</a>
+                                    <a href="https://bodegasmaximoabete.com/en/inicio-english/" target="_blank" class="location-link">🍷 Winery Website</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Manresa Section -->
+                <section id="manresa-section" class="location-section">
+                    <div class="section-content">
+                        <h2>Manresa - The Sacred Cave</h2>
+                        <div class="date-header">May 29, 2025</div>
+                        <p class="location-description">
+                            We stop at the sacred cave where Ignatius spent months in prayer and penance, receiving the mystical 
+                            experiences that would become the Spiritual Exercises. Here, beside the flowing Cardoner River, Ignatius 
+                            experienced his most profound illumination—a mystical vision that opened his understanding of divine truths. 
+                            This holy site, where river meets cave, represents the heart of Ignatian spirituality and discernment.
+                        </p>
+                        <div class="gallery-grid">
+                            <div class="gallery-item">
+                                <div class="gallery-image clickable-gallery" style="background-image: url('images/manresa_cave_01.jpg'); background-size: cover; background-position: center;" data-gallery="manresa_cave" data-images="images/manresa_cave_01.jpg,images/manresa_cave_02.jpg,images/manresa_cave_03.jpg,images/manresa_cave_04.jpg,images/manresa_cave_05.jpg,images/manresa_cave_06.jpg,images/manresa_cave_07.jpg" data-featured="images/manresa_cave_01.jpg">
+                                </div>
+                                <p class="image-caption">The Sacred Cave of Saint Ignatius</p>
+                                <div class="location-links">
+                                    <a href="https://maps.google.com/?q=Santa+Cova,+Manresa,+Spain" target="_blank" class="location-link">📍 Google Maps</a>
+                                    <a href="https://en.wikipedia.org/wiki/Manresa" target="_blank" class="location-link">📖 Wikipedia</a>
+                                </div>
+                            </div>
+                            <div class="gallery-item">
+                                <div class="gallery-image clickable-gallery" style="background-image: url('images/manresa_river_01.jpg'); background-size: cover; background-position: center;" data-gallery="manresa_river" data-images="images/manresa_river_01.jpg,images/manresa_river_02.jpg,images/manresa_river_03.jpg" data-featured="images/manresa_river_01.jpg">
+                                </div>
+                                <p class="image-caption">Cardoner River - Site of Mystical Vision</p>
+                                <div class="location-links">
+                                    <a href="https://maps.google.com/?q=Cardoner+River,+Manresa,+Spain" target="_blank" class="location-link">📍 Google Maps</a>
+                                    <a href="https://en.wikipedia.org/wiki/Cardoner" target="_blank" class="location-link">📖 Wikipedia</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Montserrat Section -->
+                <section id="montserrat-section" class="location-section">
+                    <div class="section-content">
+                        <h2>Montserrat - Sacred Mountain</h2>
+                        <div class="date-header">May 29-30, 2025</div>
+                        <p class="location-description">
+                            We spend two nights at this sacred mountain monastery where Ignatius hung up his sword before 
+                            the Black Madonna and began his new life as a pilgrim. The monastery's ancient chants and 
+                            mountain peaks provide the perfect setting for retreat and reflection.
+                        </p>
+                        <div class="gallery-grid">
+                            <div class="gallery-item">
+                                <div class="gallery-image clickable-gallery" style="background-image: url('images/montserrat_monastery_01.jpg'); background-size: cover; background-position: center;" data-gallery="montserrat_monastery" data-images="images/montserrat_monastery_01.jpg,images/montserrat_monastery_02.jpg,images/montserrat_monastery_03.jpg,images/montserrat_monastery_04.jpg,images/montserrat_monastery_05.jpg,images/montserrat_monastery_06.jpg,images/montserrat_monastery_07.jpg,images/montserrat_monastery_08.jpg,images/montserrat_monastery_09.jpg" data-featured="images/montserrat_monastery_01.jpg">
+                                </div>
+                                <p class="image-caption">Montserrat Monastery</p>
+<div class="location-links">
+    <a href="https://maps.google.com/?q=Montserrat+Monastery,+Spain" target="_blank" class="location-link">📍 Google Maps</a>
+    <a href="https://en.wikipedia.org/wiki/Santa_Maria_de_Montserrat_Abbey" target="_blank" class="location-link">📖 Wikipedia</a>
+</div>
+                            </div>
+                            <div class="gallery-item">
+                                <div class="gallery-image clickable-gallery" style="background-image: url('images/montserrat_madonna_01.jpg'); background-size: cover; background-position: center;" data-gallery="montserrat_madonna" data-images="images/montserrat_madonna_01.jpg" data-featured="images/montserrat_madonna_01.jpg">
+                                </div>
+                                <p class="image-caption">The Black Madonna</p>
+<div class="location-links">
+    <a href="https://en.wikipedia.org/wiki/Virgin_of_Montserrat" target="_blank" class="location-link">📖 Wikipedia</a>
+</div>
+                            </div>
+                            <div class="gallery-item">
+                                <div class="gallery-image clickable-gallery" style="background-image: url('images/montserrat_peaks_01.jpg'); background-size: cover; background-position: center;" data-gallery="montserrat_peaks" data-images="images/montserrat_peaks_01.jpg,images/montserrat_peaks_02.jpg,images/montserrat_peaks_03.jpg,images/montserrat_peaks_04.jpg,images/montserrat_peaks_05.jpg" data-featured="images/montserrat_peaks_01.jpg">
+                                </div>
+                                <p class="image-caption">Sacred mountain peaks</p>
+<div class="location-links">
+    <a href="https://maps.google.com/?q=Montserrat,+Spain" target="_blank" class="location-link">📍 Google Maps</a>
+    <a href="https://en.wikipedia.org/wiki/Montserrat_(mountain)" target="_blank" class="location-link">📖 Wikipedia</a>
+</div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Barcelona Section -->
+                <section id="barcelona-section" class="location-section">
+                    <div class="section-content">
+                        <h2>Barcelona - Ignatian Sites</h2>
+                        <div class="date-header">June 1, 2025</div>
+                        <p class="location-description">
+                            In Barcelona, we visit Santa Maria del Mar, the Sagrada Familia, and other significant Ignatian sites. 
+                            This vibrant city connects Ignatius's medieval journey with our modern pilgrimage, showing how his 
+                            vision continues to inspire across the centuries.
+                        </p>
+                        <div class="gallery-grid">
+                            <div class="gallery-item">
+                                <div class="gallery-image clickable-gallery" style="background-image: url('images/barcelona_mar_01.jpg'); background-size: cover; background-position: center;" data-gallery="barcelona_mar" data-images="images/barcelona_mar_01.jpg,images/barcelona_mar_02.jpg,images/barcelona_mar_03.jpg,images/barcelona_mar_04.jpg" data-featured="images/barcelona_mar_01.jpg">
+                                </div>
+                                <p class="image-caption">Santa Maria del Mar</p>
+<div class="location-links">
+    <a href="https://maps.google.com/?q=Santa+Maria+del+Mar,+Barcelona,+Spain" target="_blank" class="location-link">📍 Google Maps</a>
+    <a href="https://en.wikipedia.org/wiki/Santa_Maria_del_Mar" target="_blank" class="location-link">📖 Wikipedia</a>
+</div>
+                            </div>
+                            <div class="gallery-item">
+                                <div class="gallery-image clickable-gallery" style="background-image: url('images/barcelona_sagrada_01.jpg'); background-size: cover; background-position: center;" data-gallery="barcelona_sagrada" data-images="images/barcelona_sagrada_01.jpg,images/barcelona_sagrada_02.jpg,images/barcelona_sagrada_03.jpg,images/barcelona_sagrada_04.jpg,images/barcelona_sagrada_05.jpg" data-featured="images/barcelona_sagrada_01.jpg">
+                                </div>
+                                <p class="image-caption">Sagrada Familia</p>
+<div class="location-links">
+    <a href="https://maps.google.com/?q=Sagrada+Familia,+Barcelona,+Spain" target="_blank" class="location-link">📍 Google Maps</a>
+    <a href="https://en.wikipedia.org/wiki/Sagrada_Fam%C3%ADlia" target="_blank" class="location-link">📖 Wikipedia</a>
+</div>
+                            </div>
+                            <div class="gallery-item">
+                                <div class="gallery-image clickable-gallery" style="background-image: url('images/barcelona_quarter_01.jpg'); background-size: cover; background-position: center;" data-gallery="barcelona_quarter" data-images="images/barcelona_quarter_01.jpg,images/barcelona_quarter_02.jpg,images/barcelona_quarter_03.jpg,images/barcelona_quarter_04.jpg,images/barcelona_quarter_05.jpg,images/barcelona_quarter_06.jpg,images/barcelona_quarter_07.jpg,images/barcelona_quarter_08.jpg" data-featured="images/barcelona_quarter_01.jpg">
+                                </div>
+                                <p class="image-caption">Gothic Quarter - Ignatian sites</p>
+<div class="location-links">
+    <a href="https://maps.google.com/?q=Gothic+Quarter,+Barcelona,+Spain" target="_blank" class="location-link">📍 Google Maps</a>
+    <a href="https://en.wikipedia.org/wiki/Gothic_Quarter,_Barcelona" target="_blank" class="location-link">📖 Wikipedia</a>
+</div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Rome Section -->
+                <section id="rome-section" class="location-section">
+                    <div class="section-content">
+                        <h2>Rome - Eternal City</h2>
+                        <div class="date-header">June 2-4, 2025</div>
+                        <p class="location-description">
+                            Our pilgrimage culminates in Rome, where Ignatius founded the Society of Jesus and died. We visit 
+                            Paul Outside the Walls, walk the ancient Appia Antica, pray at the Gesu, San Ignazio, and Saint Mary Major. 
+                            We begin with a visit to the Jesuit Refugee Service at the Jesuit Curia, witnessing the Society's ongoing 
+                            mission of service. We conclude with Mass in the rooms where Saint Ignatius died, next to the Gesu.
+                        </p>
+                        <div class="gallery-grid">
+                            <div class="gallery-item">
+                                <div class="gallery-image clickable-gallery" style="background-image: url('images/rome_gesu_01.jpg'); background-size: cover; background-position: center;" data-gallery="rome_gesu" data-images="images/rome_gesu_01.jpg,images/rome_gesu_02.jpg,images/rome_gesu_03.jpg,images/rome_gesu_04.jpg,images/rome_gesu_05.jpg" data-featured="images/rome_gesu_01.jpg">
+                                </div>
+                                <p class="image-caption">Il Gesu - Mother Church of the Jesuits</p>
+<div class="location-links">
+    <a href="https://maps.google.com/?q=Chiesa+del+Gesu,+Rome,+Italy" target="_blank" class="location-link">📍 Google Maps</a>
+    <a href="https://en.wikipedia.org/wiki/Church_of_the_Ges%C3%B9" target="_blank" class="location-link">📖 Wikipedia</a>
+</div>
+                            </div>
+                            <div class="gallery-item">
+                                <div class="gallery-image clickable-gallery" style="background-image: url('images/rome_ignatius_01.jpg'); background-size: cover; background-position: center;" data-gallery="rome_ignatius" data-images="images/rome_ignatius_01.jpg,images/rome_ignatius_02.jpg,images/rome_ignatius_03.jpg,images/rome_ignatius_04.jpg,images/rome_ignatius_05.jpg,images/rome_ignatius_06.jpg" data-featured="images/rome_ignatius_01.jpg">
+                                </div>
+                                <p class="image-caption">Rooms of Saint Ignatius</p>
+<div class="location-links">
+    <a href="https://maps.google.com/?q=Rooms+of+St+Ignatius,+Rome,+Italy" target="_blank" class="location-link">📍 Google Maps</a>
+    <a href="https://en.wikipedia.org/wiki/Rooms_of_St._Ignatius" target="_blank" class="location-link">📖 Wikipedia</a>
+</div>
+                            </div>
+                            <div class="gallery-item">
+                                <div class="gallery-image" style="background: linear-gradient(45deg, #DC143C, #FFB6C1);" data-gallery="rome_andrea" data-images="100.png,101.png">
+                                    <div class="filename-overlay">rome_andrea_*.png</div>
+                                </div>
+                                <p class="image-caption">San Andrea al Quirinale</p>
+<div class="location-links">
+    <a href="https://maps.google.com/?q=Sant%27Andrea+al+Quirinale,+Rome,+Italy" target="_blank" class="location-link">📍 Google Maps</a>
+    <a href="https://en.wikipedia.org/wiki/Sant%27Andrea_al_Quirinale" target="_blank" class="location-link">📖 Wikipedia</a>
+</div>
+                            </div>
+                            <div class="gallery-item">
+                                <div class="gallery-image clickable-gallery" style="background-image: url('images/rome_mary_01.jpg'); background-size: cover; background-position: center;" data-gallery="rome_mary" data-images="images/rome_mary_01.jpg,images/rome_mary_02.jpg,images/rome_mary_03.jpg,images/rome_mary_04.jpg,images/rome_mary_05.jpg,images/rome_mary_06.jpg,images/rome_mary_07.jpg" data-featured="images/rome_mary_01.jpg">
+                                </div>
+                                <p class="image-caption">Saint Mary Major</p>
+<div class="location-links">
+    <a href="https://maps.google.com/?q=Basilica+di+Santa+Maria+Maggiore,+Rome,+Italy" target="_blank" class="location-link">📍 Google Maps</a>
+    <a href="https://en.wikipedia.org/wiki/Basilica_di_Santa_Maria_Maggiore" target="_blank" class="location-link">📖 Wikipedia</a>
+</div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+
+            <!-- Homeward Bound Section -->
+            <section id="home-section" class="location-section">
+                <div class="section-content">
+                    <h2>Homeward Bound – Return to the United States</h2>
+                    <div class="date-header">June 5, 2025</div>
+                    <p class="location-description">
+                        As dawn broke on June 5th, our hearts were full and our suitcases perhaps a little heavier (with gifts, mementos, and maybe a few extra pastries). This was the day we all made our way back across the Atlantic, returning to the United States and, in a way, to ourselves—changed, renewed, and deeply grateful.
+                    </p>
+                    <p class="location-description">
+                        We owe a debt of gratitude to <strong>Tom Landy</strong>, whose masterful organization and tireless spirit guided us, even when illness tried to sideline him. To <strong>Keith Maczkiewicz, S.J.</strong>, for his incredible Masses and for pinch-hitting with grace and humor when Tom was under the weather. To our respective institutions, whose support made this journey possible. To our tour guides, who brought history and spirit to life. And to each other—for the laughter, the deep conversations, the prayers, and the memories that will last a lifetime.
+                    </p>
+                    <p class="location-description">
+                        We walked in the footsteps of Ignatius and found, in each other, a community of pilgrims—friends who became family. Until we meet again on new roads and at new altars, may the spirit of this pilgrimage continue to inspire us all. <span style="color: #d4af37;">Ad Majorem Dei Gloriam!</span>
+                    </p>
+                </div>
+            </section>
+
+            <!-- Navigation Controls -->
+            <div class="nav-controls">
+                <button id="prev-btn" class="nav-btn" disabled>← Previous</button>
+                <button id="next-btn" class="nav-btn">Next →</button>
+            </div>
+        </div>
+    </main>
+
+    <!-- Image Modal for Lightbox -->
+    <div id="image-modal" class="image-modal">
+        <span class="modal-close">&times;</span>
+        <img class="modal-image" id="modal-img">
+        <div class="modal-caption" id="modal-caption"></div>
+        <button class="modal-prev" aria-label="Previous image">‹</button>
+        <button class="modal-next" aria-label="Next image">›</button>
+    </div>
+
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script src="script_new.js"></script>
+</body>
+</html>
