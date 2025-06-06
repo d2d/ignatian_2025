@@ -192,6 +192,8 @@ function updateMobileProgress() {
     if (progressFill) {
         const progress = ((currentLocationIndex + 1) / locations.length) * 100;
         progressFill.style.width = `${progress}%`;
+    } else {
+        console.log('Progress fill element not found');
     }
 }
 
@@ -439,30 +441,51 @@ function initializeThemeToggle() {
 
 // ===== MOBILE SCROLL SPY =====
 function initializeMobileScrollSpy() {
-    if (isDesktop) return;
+    // Only initialize on mobile
+    if (window.innerWidth > 768) return;
     
     let scrollTimer;
     
-    window.addEventListener('scroll', () => {
+    function handleScroll() {
         clearTimeout(scrollTimer);
         scrollTimer = setTimeout(() => {
             const sections = document.querySelectorAll('.location-section');
-            const scrollPos = window.scrollY + 100;
+            const scrollPos = window.scrollY + window.innerHeight / 3;
             
+            let activeIndex = 0;
             sections.forEach((section, index) => {
+                const rect = section.getBoundingClientRect();
                 const top = section.offsetTop;
                 const bottom = top + section.offsetHeight;
                 
-                if (scrollPos >= top && scrollPos < bottom) {
-                    if (currentLocationIndex !== index) {
-                        currentLocationIndex = index;
-                        updateActiveNavStop();
-                        updateMobileProgress();
-                    }
+                // Use both methods to detect active section
+                if ((scrollPos >= top && scrollPos < bottom) || (rect.top <= window.innerHeight / 2 && rect.top >= -section.offsetHeight / 2)) {
+                    activeIndex = index;
                 }
             });
-        }, 50);
-    });
+            
+            if (currentLocationIndex !== activeIndex) {
+                currentLocationIndex = activeIndex;
+                updateActiveNavStop();
+                updateMobileProgress();
+            }
+        }, 100);
+    }
+    
+    // Listen to both window and document scroll events
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    document.addEventListener('scroll', handleScroll, { passive: true });
+    
+    // Also listen to the content wrapper if it exists
+    const contentWrapper = document.querySelector('.content-wrapper');
+    if (contentWrapper) {
+        contentWrapper.addEventListener('scroll', handleScroll, { passive: true });
+    }
+    
+    // Trigger once on load
+    setTimeout(() => {
+        handleScroll();
+    }, 1000);
 }
 
 // ===== RESIZE HANDLER =====
